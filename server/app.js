@@ -253,7 +253,7 @@ app.post('/api/auth/login', rateLimit({ limit: 8, windowMs: 15 * 60 * 1000 }), a
   const email = emailAddress(req.body.email);
   const password = text(req.body.password, 'Password', { required: true, max: 128 });
   const { rows } = await getPool().query(
-    `SELECT id, full_name, email, contact_number, password_hash, role, status
+    `SELECT id, full_name, email, contact_number, password_hash, role, status, session_version
      FROM users WHERE LOWER(email) = $1`,
     [email]
   );
