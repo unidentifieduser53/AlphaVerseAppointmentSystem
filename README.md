@@ -28,7 +28,7 @@ On Windows with PostgreSQL 18 installed under `C:\Program Files\PostgreSQL\18\bi
 
 ## Deploy to Render
 
-Create a Node web service from this repository. Render uses `npm ci` and `npm start` as configured in `render.yaml`. Attach a PostgreSQL instance and set the service's `DATABASE_URL` to its connection string, then run `npm run db:setup` once with that connection string. Add `RESEND_API_KEY`, `EMAIL_FROM`, `INQUIRY_NOTIFICATION_EMAIL`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` as Render environment secrets.
+Create a Node web service from this repository. Render uses `npm ci` and `npm start`. At startup, the app applies the idempotent PostgreSQL schema before seeding the initial administrator, so the `users` table exists first. Attach a PostgreSQL instance and set the service's `DATABASE_URL` to its connection string. Add `RESEND_API_KEY`, `EMAIL_FROM`, `INQUIRY_NOTIFICATION_EMAIL`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` as Render environment secrets.
 
 ## Deploy to Vercel
 
