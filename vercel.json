@@ -1,0 +1,25 @@
+{
+  "functions": {
+    "api/[...route].js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/register.html"
+    },
+    {
+      "source": "/verify",
+      "destination": "/verify.html"
+    }
+  ]
+}

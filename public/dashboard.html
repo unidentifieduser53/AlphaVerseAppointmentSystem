@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | AlphaVerse Construction</title>
+  <link rel="stylesheet" href="/css/site.css"><script src="/js/dashboard.js" defer></script>
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header">
+    <a class="brand" href="/">AlphaVerse <span>Construction</span></a>
+    <div class="account-tools"><span id="account-name">Loading account…</span><button class="button button-small button-outline" id="logout-button">Sign out</button></div>
+  </header>
+  <div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboard-sidebar">
+      <nav aria-label="Dashboard navigation" id="dashboard-nav"></nav>
+      <div class="sidebar-tools"><a href="/api/backup" id="backup-link">Download data backup</a><button id="export-button" type="button">Export current table</button></div>
+      <a class="back-link" href="/">← Public website</a>
+    </aside>
+    <main class="dashboard-content">
+      <div id="dashboard-message" class="form-message" role="status" aria-live="polite"></div>
+      <section id="dashboard-panel"><p class="muted">Loading your workspace…</p></section>
+    </main>
+  </div>
+  <dialog id="record-dialog" class="record-dialog"><form method="dialog" class="dialog-close"><button aria-label="Close">×</button></form><div id="dialog-content"></div></dialog>
+</body>
+</html>

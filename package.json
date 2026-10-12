@@ -1,0 +1,25 @@
+{
+  "name": "alphaverse-construction",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AlphaVerse Construction website and management system",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "db:setup": "node scripts/setup-database.js",
+    "db:local": "node scripts/setup-local-postgres.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3",
+    "resend": "^6.1.2"
+  }
+}

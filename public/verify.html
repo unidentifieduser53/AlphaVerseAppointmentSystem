@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verify Email | AlphaVerse Construction</title>
+  <link rel="stylesheet" href="/css/site.css"><script src="/js/site.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="site-header"><a class="brand" href="/">AlphaVerse <span>Construction</span></a><a class="back-link" href="/register.html">← Back to registration</a></header>
+  <main class="auth-main auth-main-centered">
+    <form class="form-card auth-card" id="verify-form"><p class="eyebrow">CHECK YOUR INBOX</p><h1>Verify your email</h1><p>Enter the six-digit code sent to your email. The code expires in 10 minutes.</p><div class="form-message" role="status" aria-live="polite"></div>
+      <label>Email address<input name="email" id="verify-email" type="email" autocomplete="email" required maxlength="254"></label>
+      <label>Verification code<input name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required placeholder="000000"></label>
+      <button class="button button-primary button-wide" type="submit">Verify email <span>→</span></button>
+      <button class="button button-wide" id="resend-verification" type="button">Send a new code</button>
+      <p class="auth-switch"><a href="/login.html">Return to sign in</a></p>
+    </form>
+  </main>
+  <footer class="site-footer"><a href="/privacy.html">Privacy</a><small>© 2026 AlphaVerse Construction Services</small></footer>
+</body>
+</html>

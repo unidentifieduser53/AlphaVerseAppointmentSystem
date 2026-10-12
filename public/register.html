@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create an Account | AlphaVerse Construction</title>
+  <link rel="stylesheet" href="/css/site.css"><script src="/js/site.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="site-header"><a class="brand" href="/">AlphaVerse <span>Construction</span></a><a class="back-link" href="/">← Back to website</a></header>
+  <main class="auth-main">
+    <section class="auth-intro"><p class="eyebrow">JOIN ALPHAVERSE</p><h1>One place for your project journey.</h1><p>Create a client account to keep in touch with our team. Administrator requests require approval.</p></section>
+    <form class="form-card auth-card" id="register-form"><p class="eyebrow">CREATE YOUR ACCOUNT</p><h2>Get started</h2><div class="form-message" role="status" aria-live="polite"></div>
+      <label>Full name<input name="fullName" autocomplete="name" required maxlength="150" placeholder="Your full name"></label>
+      <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+      <label>Contact number<input name="contactNumber" autocomplete="tel" maxlength="40" placeholder="09XX XXX XXXX"></label>
+      <label>Account type<select name="role" required><option value="client">Client account</option><option value="admin">Request administrator access</option></select></label>
+      <label>Password <small>At least 8 characters, including uppercase, lowercase, and a number.</small><input name="password" type="password" autocomplete="new-password" minlength="8" required maxlength="128"></label>
+      <button class="button button-primary button-wide" type="submit">Continue with email verification <span>→</span></button>
+      <p class="auth-switch">Already have an account? <a href="/login.html">Sign in</a></p>
+    </form>
+  </main>
+  <footer class="site-footer"><a href="/privacy.html">Privacy</a><small>© 2026 AlphaVerse Construction Services</small></footer>
+</body>
+</html>

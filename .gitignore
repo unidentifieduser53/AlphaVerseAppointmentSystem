@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.vercel/
+.render/
+.vs/
+npm-debug.log*
+AlphaVerse_System.db
+AlphaVerse_System.db-shm
+AlphaVerse_System.db-wal
+database/legacy.sqlite*
+database/local-pgdata/
+database/.local-pg-admin-password
+database/local-postgres.log
