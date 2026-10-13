@@ -206,7 +206,11 @@ h1, h2, h3 { font-family: 'Manrope', 'DM Sans', sans-serif; line-height: 1.14; l
 .dialog-close button { border: 0; background: transparent; color: var(--ink); font-size: 1.8rem; }
 .record-dialog h2 { margin: 0 0 18px; }
 .empty-state { padding: 24px; color: var(--ink-soft); text-align: center; }
-.status-pill { display: inline-block; padding: 3px 7px; border-radius: 99px; background: #eee8df; color: #584632; font-size: .7rem; white-space: nowrap; }
+.status-pill { display: inline-block; padding: 3px 7px; border-radius: 99px; background: #eee8df; color: #584632; font-size: .7rem; white-space: nowrap; font-weight: 700; }
+.status-pill.neutral { background: #f0ede8; color: #584632; }
+.status-pill.rejected { background: #fdeae8; color: var(--error); }
+.status-pill.pending { background: #fff4d6; color: #8a5e00; }
+.status-pill.completed { background: #eaf8ef; color: var(--success); }
 .dashboard-content .form-message { margin-bottom: 18px; }
 .legal-content { max-width: 980px; min-height: 65vh; margin: 0 auto; }
 .legal-content h1 { font-size: 3rem; }

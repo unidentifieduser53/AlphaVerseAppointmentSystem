@@ -123,6 +123,15 @@ function money(value) {
   return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(Number(value) || 0);
 }
 
+function statusClassName(status = '') {
+  const normalized = String(status ?? '').trim().toLowerCase();
+  if (!normalized) return 'neutral';
+  if (/(rejected|cancelled|declined|denied)/.test(normalized)) return 'rejected';
+  if (/(pending|new|upcoming|meeting set|discussed|on hold)/.test(normalized)) return 'pending';
+  if (/(completed|accepted|approved|paid|ongoing|done)/.test(normalized)) return 'completed';
+  return 'neutral';
+}
+
 function metric(label, value) {
   return `<article class="metric-card"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></article>`;
 }
@@ -132,7 +141,7 @@ function tableMarkup(columns, items, { actions = false } = {}) {
   const headers = columns.map(([, title]) => `<th>${escapeHtml(title)}</th>`).join('');
   const rows = items.map((item) => `<tr data-id="${escapeHtml(item.id)}">
     ${columns.map(([key]) => `<td>${key === 'status'
-      ? `<span class="status-pill">${escapeHtml(item[key])}</span>`
+      ? `<span class="status-pill ${statusClassName(item[key])}">${escapeHtml(item[key])}</span>`
       : escapeHtml(display(item[key]))}</td>`).join('')}
     ${actions ? `<td>${actionButtons(item)}</td>` : ''}
   </tr>`).join('');
