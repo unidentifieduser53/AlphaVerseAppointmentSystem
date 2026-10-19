@@ -183,6 +183,11 @@ h1, h2, h3 { font-family: 'Manrope', 'DM Sans', sans-serif; line-height: 1.14; l
 .metric-card span { display: block; color: var(--ink-soft); font-size: .78rem; }
 .metric-card strong { display: block; margin-top: 5px; color: var(--orange-dark); font: 700 1.65rem 'Manrope', sans-serif; overflow-wrap: anywhere; }
 .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.client-overview-grid .panel-card { min-width: 0; }
+.client-overview-grid .data-table { font-size: .73rem; }
+.client-view-link { display: inline-block; margin-top: 14px; color: var(--orange-dark); font-size: .8rem; font-weight: 700; text-decoration: none; }
+.client-view-link:hover { text-decoration: underline; }
+.client-records { min-width: 0; }
 .panel-card h2 { margin-bottom: 14px; }
 .data-table-wrap { width: 100%; overflow-x: auto; background: #fff; border: 1px solid var(--line); }
 .data-table { width: 100%; border-collapse: collapse; font-size: .78rem; }

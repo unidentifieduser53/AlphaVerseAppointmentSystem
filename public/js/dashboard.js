@@ -113,7 +113,16 @@ function notify(text, kind = 'success') {
 }
 
 function navMarkup(role, selected) {
-  const visibleItems = role === 'admin' ? navItems : [['client', 'My projects'], ['settings', 'Settings']];
+  const visibleItems = role === 'admin'
+    ? navItems
+    : [
+        ['client', 'Dashboard'],
+        ['client-projects', 'My projects'],
+        ['client-schedules', 'Scheduling'],
+        ['client-billings', 'Billing'],
+        ['client-inquiries', 'Inquiries'],
+        ['settings', 'Settings']
+      ];
   nav.innerHTML = visibleItems.map(([slug, title]) =>
     `<a href="#${slug}"${selected === slug ? ' aria-current="page"' : ''}>${escapeHtml(title.toUpperCase())}</a>`
   ).join('');
@@ -248,29 +257,70 @@ async function renderSettings() {
     </form></section>`;
 }
 
-async function renderClient() {
+function renderClientRecords(data, section) {
+  const recordSections = {
+    'client-projects': {
+      title: 'My projects',
+      description: 'Your construction projects and their current status.',
+      records: data.projects,
+      columns: [['project_name', 'Project'], ['location', 'Location'], ['status', 'Status'], ['start_date', 'Start date'], ['end_date', 'End date']]
+    },
+    'client-schedules': {
+      title: 'Scheduling',
+      description: 'Upcoming appointments and project schedule updates.',
+      records: data.schedules,
+      columns: [['title', 'Title'], ['project_name', 'Project'], ['assigned_to', 'Assigned to'], ['scheduled_date', 'Date'], ['status', 'Status']]
+    },
+    'client-billings': {
+      title: 'Billing',
+      description: 'Invoices and payment updates for your projects.',
+      records: data.billings,
+      columns: [['project_name', 'Project'], ['amount', 'Amount'], ['billing_date', 'Billed'], ['due_date', 'Due'], ['status', 'Status']]
+    },
+    'client-inquiries': {
+      title: 'Inquiries',
+      description: 'Updates on inquiries submitted to AlphaVerse.',
+      records: data.inquiries,
+      columns: [['project_type', 'Project'], ['date_submitted', 'Submitted'], ['status', 'Status'], ['message', 'Details']]
+    }
+  };
+  const recordSection = recordSections[section];
+
+  panel.innerHTML = `<h1>${escapeHtml(recordSection.title)}</h1>
+    <p class="dashboard-subtitle">${escapeHtml(recordSection.description)}</p>
+    <section class="panel-card client-records">${tableMarkup(recordSection.columns, recordSection.records)}</section>`;
+}
+
+async function renderClient(section = 'client') {
   const data = await api('/api/client/summary');
+  if (section !== 'client') {
+    return renderClientRecords(data, section);
+  }
+
   const greetingName = activeUser.fullName.split(' ')[0];
   panel.innerHTML = `<h1>Welcome, ${escapeHtml(greetingName)}</h1><p class="dashboard-subtitle">Your project updates and account information.</p>
     <div class="metric-grid">${metric('Projects', data.projects.length)}${metric('Schedules', data.schedules.length)}${metric('Open invoices', data.billings.filter((item) => item.status === 'Pending').length)}${metric('Inquiries', data.inquiries.length)}</div>
-    <div class="dashboard-grid">
-      <section class="panel-card"><h2>Your projects</h2>${tableMarkup([['project_name', 'Project'], ['location', 'Location'], ['status', 'Status'], ['start_date', 'Start date']], data.projects)}</section>
-      <section class="panel-card"><h2>Billing updates</h2>${tableMarkup([['project_name', 'Project'], ['amount', 'Amount'], ['due_date', 'Due'], ['status', 'Status']], data.billings)}</section>
-      <section class="panel-card"><h2>Upcoming schedule</h2>${tableMarkup([['title', 'Title'], ['project_name', 'Project'], ['scheduled_date', 'Date'], ['status', 'Status']], data.schedules)}</section>
-      <section class="panel-card"><h2>Your inquiries</h2>${tableMarkup([['project_type', 'Project'], ['date_submitted', 'Submitted'], ['status', 'Status']], data.inquiries)}</section>
+    <div class="dashboard-grid client-overview-grid">
+      <section class="panel-card"><h2>Your projects</h2>${tableMarkup([['project_name', 'Project'], ['location', 'Location'], ['status', 'Status'], ['start_date', 'Start date']], data.projects.slice(0, 3))}<a class="client-view-link" href="#client-projects">View all projects →</a></section>
+      <section class="panel-card"><h2>Billing updates</h2>${tableMarkup([['project_name', 'Project'], ['amount', 'Amount'], ['due_date', 'Due'], ['status', 'Status']], data.billings.slice(0, 3))}<a class="client-view-link" href="#client-billings">View billing →</a></section>
+      <section class="panel-card"><h2>Upcoming schedule</h2>${tableMarkup([['title', 'Title'], ['project_name', 'Project'], ['scheduled_date', 'Date'], ['status', 'Status']], data.schedules.slice(0, 3))}<a class="client-view-link" href="#client-schedules">View schedule →</a></section>
+      <section class="panel-card"><h2>Your inquiries</h2>${tableMarkup([['project_type', 'Project'], ['date_submitted', 'Submitted'], ['status', 'Status']], data.inquiries.slice(0, 3))}<a class="client-view-link" href="#client-inquiries">View inquiries →</a></section>
     </div>`;
 }
 
 async function renderPage() {
   const hash = location.hash.replace('#', '') || 'dashboard';
+  const clientPages = ['client', 'client-projects', 'client-schedules', 'client-billings', 'client-inquiries', 'settings'];
   const page = activeUser.role === 'admin'
     ? (hash === 'client' ? 'dashboard' : hash)
-    : hash === 'settings' ? 'settings' : 'client';
+    : clientPages.includes(hash)
+      ? hash
+      : 'client';
   navMarkup(activeUser.role, page);
   if (activeUser.role === 'admin') {
     return page === 'dashboard' ? renderDashboard() : renderResource(page);
   }
-  return page === 'settings' ? renderSettings() : renderClient();
+  return page === 'settings' ? renderSettings() : renderClient(page);
 }
 
 document.querySelector('#dashboard-nav')?.addEventListener('click', (event) => {
